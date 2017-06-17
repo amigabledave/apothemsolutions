@@ -23,14 +23,14 @@
 
 <body class="">
 
-	<div class="" style="background-color:rgb(39,64,139); height: 7vh">
+	<div class="" style="background-color:rgb(39,64,139);height: {% if usuario %}7vh{% else %}13vh{% endif %}">
 		<div class="container">
 			
 			<div class="row" style="min-height: 42px;">			
 				
 				<div class="col-xs-6 col-sm-9 col-md-7 col-lg-7" style="padding-left:0px;"> 
 					<div class="NavigationTopBarBlock">
-						<span class=""> Apothem Solutions </span>
+						<span class="" style="font-size: {% if usuario %}20px{% else %}35px;{% endif %}"> Apothem Solutions </span>
 					</div>
 				</div>
 			
