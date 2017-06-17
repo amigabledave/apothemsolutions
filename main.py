@@ -539,6 +539,12 @@ class DeckEditor(Handler):
 					if tag in valid_tags:
 						tags.append(tag)
 				slide.tags = tags
+			elif attr_key == 'is_private':
+				slide.is_private = attr_value
+
+			elif attr_key == 'client':
+				slide.client = attr_value.encode('utf-8')
+
 			slide.put()
 			self.response.out.write(json.dumps({
 				'message': 'the package has been delivered'
@@ -552,14 +558,60 @@ class DeckEditor(Handler):
 				'message': 'slide deleted'
 				}))			
 
-
-class ReportViewer(Handler):
+# xx
+class UserEditor(Handler):
 	@super_civilian_bouncer
 	def get(self):
+		usuarios = Usuario.query().order(Usuario.client).fetch()
+		self.print_html('UserEditor.html', usuarios=usuarios)
+
+	def post(self):
+		event_details = json.loads(self.request.body)
+		usuario = Usuario.get_by_id(int(event_details['user_id']))
+		user_action = event_details['user_action']
+		
+		if user_action == 'UpdateUser':
+			attr_key = event_details['attr_key']
+			attr_value = event_details['attr_value']
+			
+			if attr_key in ['first_name', 'last_name', 'client'] :
+				setattr(usuario, attr_key, attr_value.encode('utf-8'))
+
+			elif attr_key == 'email':
+				usuario.email = str(attr_value)
+
+			elif attr_key == 'is_admin':
+				usuario.is_admin = attr_value
+
+			usuario.put()
+			self.response.out.write(json.dumps({
+				'message': 'the package has been delivered'
+				}))
+
+		elif user_action == 'DeleteUser':
+			usuario.key.delete()
+			self.response.out.write(json.dumps({
+				'message': 'user deleted'
+				}))			
+
+
+class ReportViewer(Handler):
+	@super_user_bouncer
+	def get(self):
 		slides = Slide.query().order(Slide.number).fetch()
+		slides = self.filter_slides(slides, self.usuario.client)
 		secciones = diccionarios_CNBV.opciones['secciones']
 		self.print_html('ReportViewer.html', slides=slides, secciones=secciones)
 
+		
+	def filter_slides(self, slides, user_client):
+		result = []
+		for slide in slides:
+			if not slide.is_private:
+				result.append(slide)
+			elif  slide.client == user_client:
+				result.append(slide)
+		return result
 
 
 class NewSlide(Handler):
@@ -742,9 +794,10 @@ class CrearUsuario(Handler):
 				usuario = Usuario(
 					email=post_details['email'], 
 					password_hash=password_hash, 
-					first_name=post_details['first_name'], 
-					last_name=post_details['last_name'],
-					is_admin=post_details['is_administrator'])
+					first_name=post_details['first_name'].encode('utf-8'), 
+					last_name=post_details['last_name'].encode('utf-8'),
+					is_admin=post_details['is_administrator'],
+					client=post_details['client'].encode('utf-8'))
 				usuario.put()
 				
 			self.response.out.write(json.dumps({
@@ -1011,6 +1064,7 @@ app = webapp2.WSGIApplication([
     
     ('/FirstUser', FirstUser),
     ('/CrearUsuario', CrearUsuario),
+    ('/UserEditor', UserEditor),
 
     ('/VisualizadorCNBV', ChartViewer),
     ('/CNBVQueries',ChartViewer),

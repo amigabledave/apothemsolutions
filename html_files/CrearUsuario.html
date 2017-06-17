@@ -42,6 +42,12 @@
 			</div>
 
 			<div class="form-group">
+				<div class="col-sm-12">
+					<input type="email" class="form-control SignUp_Input" name="client" id="client" placeholder="Cliente" value="{% if input_error %}{{post_details['cliente']}}{% endif %}">
+				</div>
+			</div>
+
+			<div class="form-group">
 				<div class="col-xs-12">
 					<div class="checkbox" style="padding-top: 0px;"><label><input type="checkbox" id="is_administrator"> Dar credenciales de administrador a este usuario </label></div>
 				</div>

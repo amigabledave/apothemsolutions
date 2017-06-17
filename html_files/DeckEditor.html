@@ -26,16 +26,28 @@
 					<label>Lead</label>
 					<textarea style="width:100%;" class="form-control QuickAttributeUpdate" name="lead" id="lead" placeholder="Lead">{{slide.lead}}</textarea>
 				</div>
-				<div class="col-xs-1" style="padding:0px">
+				<div class="col-xs-1">
 					<label>Numero</label>
 					<input type="number" min="0" class="form-control QuickAttributeUpdate" name="number" id="number" placeholder="e.g. 1" style="margin-bottom:5px;" value="{{slide.number}}">
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-1" style="padding:0px">
 					<label>Tags Ids</label>
-						<input type="text" class="form-control QuickAttributeUpdate"  name="tags" id="tags" placeholder="e.g. S00, S02" value="{% for tag in slide.tags %}{{tag}},{% endfor %}">
+						<input type="text" class="form-control QuickAttributeUpdate"  name="tags" id="tags" placeholder="e.g. S00," value="{% for tag in slide.tags %}{{tag}},{% endfor %}">
 				</div>
+				
 				<div class="col-xs-1">
-					<button type="button" class="btn btn-danger DeleteSlideButton" style="margin-top: 23px"><span class="glyphicon glyphicon-trash"></span></button>
+					<label>Privada</label>
+					<div class="checkbox" style="margin: 0px;"><input style="margin-left: 30px" type="checkbox" name="is_private" id="is_private" class="QuickAttributeUpdate" {% if slide.is_private %}checked{% endif %}></div>
+				</div>
+
+				<div class="col-xs-2">
+					<label>Cliente</label>				
+						<input type="text" class="form-control QuickAttributeUpdate"  name="client" id="client" placeholder="e.g. McKinsey" value="{% if slide.client %}{{slide.client}}{% endif %}"> 		
+					</select> 
+				</div>
+
+				<div class="col-xs-1">
+					<button type="button" class="btn btn-danger DeleteButton" style="margin-top: 23px"><span class="glyphicon glyphicon-trash"></span></button>
 				</div>			
 			</div>
 		{% endfor %}

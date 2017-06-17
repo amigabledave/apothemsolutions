@@ -12,7 +12,9 @@ class Usuario(ndb.Model):
 	#user details	
 	first_name = ndb.StringProperty(required=True)
 	last_name = ndb.StringProperty(required=True)
+	client = ndb.StringProperty()
 	is_admin = ndb.BooleanProperty(default=False)
+
 	
 	#tracker fields
 	created = ndb.DateTimeProperty(auto_now_add=True)	
@@ -63,6 +65,8 @@ class Slide(ndb.Model):
 	number = ndb.IntegerProperty(required=True, default=0)	
 	tags = ndb.JsonProperty()
 	doc_name = ndb.StringProperty()
+	is_private = ndb.BooleanProperty(default=False)
+	client = ndb.StringProperty()
 	
 
 class DatoCNBV(ndb.Model):

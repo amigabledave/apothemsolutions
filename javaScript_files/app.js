@@ -3,6 +3,7 @@ $('#SignUpButton').on('click', function(){
 	console.log('ya se dio cuenta que quiero hacer sign up')
 	var first_name = $('#first_name').val()
 	var last_name = $('#last_name').val()
+	var client = $('#client').val()
 	var email = $('#email').val()
 	var confirm_email = $('#confirm_email').val()
 	var password = $('#password').val()
@@ -19,7 +20,8 @@ $('#SignUpButton').on('click', function(){
 			'email':email,
 			'confirm_email':confirm_email,
 			'is_administrator':$('#is_administrator').is(':checked'),
-			'password':password		
+			'password':password,
+			'client': client,		
 		})
 	})
 	.done(function(data){
@@ -39,6 +41,7 @@ $('#SignUpButton').on('click', function(){
 			$('#email').val('')
 			$('#confirm_email').val('')
 			$('#password').val('')
+			$('#client').val('')
 			$('#is_administrator').prop('checked', false)
 		};
 	})		
@@ -159,48 +162,110 @@ $(document).on('focusin', '.QuickAttributeUpdate', function(){
 
 	$(this).on('focusout', function(){
 		if(attr_value != $(this).val()){
-			var attr_key = $(this).attr("name");
-			var slide = $(this).closest('#DeckEditorSlide');
-			var slide_id = slide.attr("value");
 			
+			var attr_key = $(this).attr("name");
+			var attr_value = $(this).val();
+			if($(this).attr("type") == 'checkbox'){
+				attr_value = $(this).is(':checked');
+			}; 
+			
+			var target = $(this).closest('#DeckEditorSlide');
+			var target_type = 'slide'
+
+			console.log(target)
+			if(target.attr("value") == undefined){
+				target = $(this).closest('#UserEditorUser');
+				target_type = 'user' 	
+			};
+			console.log(target_type)
+
+			var target_id = target.attr("value");
+
 			console.log(attr_key);
 			console.log(attr_value);
+			
+			if (target_type == 'slide'){
+				$.ajax({
+					type: "POST",
+					url: "/DeckEditor",
+					dataType: 'json',
+					data: JSON.stringify({
+						'slide_id': target_id,
+						'user_action': 'UpdateSlide',
+						'attr_key':attr_key,
+						'attr_value':attr_value,
+					})
+				}).done(function(data){console.log(data['message'])})
 
-			$.ajax({
-				type: "POST",
-				url: "/DeckEditor",
-				dataType: 'json',
-				data: JSON.stringify({
-					'slide_id': slide_id,
-					'user_action': 'UpdateSlide',
-					'attr_key':attr_key,
-					'attr_value':$(this).val(),
-				})
-			}).done(function(data){console.log(data['message'])})
+			}
+
+			if (target_type == 'user'){
+				$.ajax({
+					type: "POST",
+					url: "/UserEditor",
+					dataType: 'json',
+					data: JSON.stringify({
+						'user_id': target_id,
+						'user_action': 'UpdateUser',
+						'attr_key':attr_key,
+						'attr_value':attr_value,
+					})
+				}).done(function(data){console.log(data['message'])})
+
+			}
+
+
 		}
 	})
 });
 
 
-$(document).on('click', '.DeleteSlideButton', function(){
+$(document).on('click', '.DeleteButton', function(){
 	
-	var slide = $(this).closest('#DeckEditorSlide');
-	var slide_id = slide.attr("value");
-	slide.fadeOut("slow")
-	// slide.addClass('hidden');
+	var target = $(this).closest('#DeckEditorSlide');
+	var target_type = 'slide'
 
-	$.ajax({
-		type: "POST",
-		url: "/DeckEditor",
-		dataType: 'json',
-		data: JSON.stringify({
-			'slide_id': slide_id,
-			'user_action': 'DeleteSlide'
-		})
-	}).done(function(data){
-		console.log(data['message']);
-		slide.addClass('hidden');
-		})
+	if(target.attr("value") == undefined){
+		target = $(this).closest('#UserEditorUser');
+		target_type = 'user' 	
+	};
+	console.log(target_type)
+
+	var target_id = target.attr("value");
+
+	target.fadeOut("slow")
+
+	if(target_type == 'slide'){
+		$.ajax({
+			type: "POST",
+			url: "/DeckEditor",
+			dataType: 'json',
+			data: JSON.stringify({
+				'slide_id': target_id,
+				'user_action': 'DeleteSlide'
+			})
+		}).done(function(data){
+			console.log(data['message']);
+			target.addClass('hidden');
+			})
+	}
+
+	if(target_type == 'user'){
+		$.ajax({
+			type: "POST",
+			url: "/UserEditor",
+			dataType: 'json',
+			data: JSON.stringify({
+				'user_id': target_id,
+				'user_action': 'DeleteUser'
+			})
+		}).done(function(data){
+			console.log(data['message']);
+			target.addClass('hidden');
+			})
+	}
+
+
 });
 
 
