@@ -44,8 +44,8 @@ $('.ExpandColapseSection').on('click', function(){
 $('.SeleccionarCorte').on('click', function(){
 
   var CorteSeleccionado = $(this)
-  // console.log('Este es el corte que se acaba de seleccionar: ')
-  // console.log(CorteSeleccionado.attr('value'))
+  console.log('Este es el corte que se acaba de seleccionar: ')
+  console.log(CorteSeleccionado.attr('value'))
 
   var CortesActivos = parseInt($('#NumeroCortesSeleccionados').val());
   var CorteRenglones = $('#CorteRenglones');
@@ -80,10 +80,10 @@ $('.SeleccionarCorte').on('click', function(){
 
   }
 
-  // console.log('This is the current corte columnas')
-  // console.log(CorteColumnas.val())
-  // console.log('This is the current corte renglones')
-  // console.log(CorteRenglones.val())
+  console.log('This is the current corte columnas')
+  console.log(CorteColumnas.val())
+  console.log('This is the current corte renglones')
+  console.log(CorteRenglones.val())
 
   flipear_boton_corte(CorteSeleccionado.val());
 });
@@ -188,6 +188,7 @@ $(document).on('click', '.UpdateChartButton', function(){
     console.log('    ')
     $('#chart_details_div').removeClass('hidden');
     $("#left_options_bar").animate({ scrollTop: 1000 }, "fast");
+    $('#variable').popover('hide');
   })
 });
 
@@ -883,6 +884,23 @@ $('#variable').on('change', function(){
   // console.log('Este es el grupo de menus visibles')
   // console.log(grupo_visible)
 
+  var popover_content;
+
+  if( variable == 'tasa' || variable == 'plazo'){
+    popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco' y una más que no sea 'Periodo'" 
+    $('#variable').attr('data-content', popover_content);  
+    $('#variable').popover('show');
+  
+  } else if(variable == 'imor'){
+    popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
+    $('#variable').attr('data-content', popover_content);
+    $('#variable').popover('show');
+  
+  }else {
+    $('#variable').popover('hide');
+  }
+
+  
   unhide_group(grupo_visible);
   seleccionar_default(variable);
 });

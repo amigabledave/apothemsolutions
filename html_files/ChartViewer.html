@@ -19,7 +19,7 @@
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-xs-12">
 					<label>Variable </label>				
-					<select class="form-control" name="variable" id="variable" style="margin-bottom:7px;">	
+					<select class="form-control" name="variable" id="variable" style="margin-bottom:7px;" data-toggle="popover" data-trigger="manual" title="Precaución"  data-container="body" data-placement="right" data-content="">	
 						<option selected="true" disabled="disabled"> -- Selecciona una variable -- </option>    
 						{% for variable in variables %}
 							<option value="{{variable[0]}}"> {{variable[1]}} </option>
@@ -233,7 +233,7 @@
 				<hr style="margin-top:5px; margin-bottom: 0px;">
 			</div>
 			<div class="loader hidden" style="margin-left: 300px; margin-top: 200px;" id="chart_loader"></div>
-			<div class="row" style=""><div class="col-xs-12"><div id="chart_div" class="hidden" style="margin-left: 10px; height: 75vh;"></div></div></div>
+			<div class="row" style=""><div class="col-xs-12"><div id="chart_div" class="hidden" style="margin-left: 10px; height: 70vh;"></div></div></div>
 			<div class="row hidden" id="MensajeError" ><div class="col-xs-12"> <span style="font-size: 100px; padding-left: 42%; padding-top: 10%; color:#337ab7;" class="glyphicon glyphicon-warning-sign"></span><h3 style="text-align: center; color:#337ab7" id="TextoMensajeError">Hubo un problema al intentar obtener los datos para generar la gráfica según los campos seleccionados. <br><br> Favor de modificar su selección e intentarlo nuevamente</h3></div></div>				
 		</div>		
 	</div>
