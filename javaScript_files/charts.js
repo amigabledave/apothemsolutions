@@ -40,12 +40,12 @@ $('.ExpandColapseSection').on('click', function(){
   GlaphiconDiv.toggleClass('glyphicon-plus'); 
 });
 
-
+// xx
 $('.SeleccionarCorte').on('click', function(){
 
   var CorteSeleccionado = $(this)
-  console.log('Este es el corte que se acaba de seleccionar: ')
-  console.log(CorteSeleccionado.attr('value'))
+  console.log(' ')
+  console.log('Apretado: ' + CorteSeleccionado.attr('value'))
 
   var CortesActivos = parseInt($('#NumeroCortesSeleccionados').val());
   var CorteRenglones = $('#CorteRenglones');
@@ -80,10 +80,10 @@ $('.SeleccionarCorte').on('click', function(){
 
   }
 
-  console.log('This is the current corte columnas')
-  console.log(CorteColumnas.val())
-  console.log('This is the current corte renglones')
-  console.log(CorteRenglones.val())
+  console.log('Cortes activos: ' + $('#NumeroCortesSeleccionados').val())
+  console.log('Corte columnas: ' + CorteColumnas.val())
+  console.log('Corte renglones: ' + CorteRenglones.val())
+
 
   flipear_boton_corte(CorteSeleccionado.val());
 });
@@ -667,7 +667,7 @@ var cortes_incompatibles = {
 
 function validar_compatibilidad(corte_seleccionado, corte_activo){
 
-
+  $('.SeleccionarCorte').popover('hide');
   if(jQuery.inArray(corte_seleccionado.val(), cortes_incompatibles[corte_activo.val()]) == -1  ){      
     $('.SeleccionarCorte').popover('hide');
     return true
