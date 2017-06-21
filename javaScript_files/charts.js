@@ -52,9 +52,8 @@ $('.SeleccionarCorte').on('click', function(){
   var cortes_activos = $('[corte_activo="Si"]');
   var num_cortes_activos = cortes_activos.length;
 
-  // xx
-  console.log(' ')
-  console.log('Cortes activos: ' + String(num_cortes_activos))
+  // console.log(' ')
+  // console.log('Cortes activos: ' + String(num_cortes_activos))
   // console.log('Apretado: ' + CorteSeleccionado.attr('value'))
 
   
@@ -133,12 +132,6 @@ $(document).on('click', '.UpdateChartButton', function(){
   } else {
     renglones = 'institucion'
   }
-
-  // for (var i = cortes_activos.length - 1; i >= 0; i--) {
-  //   console.log($(cortes_activos[i]).attr("value"));
-  // }
-
-
 
 
   $.ajax({
@@ -451,6 +444,13 @@ $(document).on('change', '.select_all_checkbox', function(){
   opciones.each(function(){
     $(this).prop('checked', checked_option);
   });
+
+  if(checked_option){
+    $(this).closest('label').find('#label_text').text('Eliminar selección');
+  } else {
+    $(this).closest('label').find('#label_text').text('Seleccionar todo');
+  }
+
 });
 
 
@@ -473,6 +473,7 @@ $('input.opcion').on('change', function() {
        this.checked = false;
    }
 });
+
 
 
 var grupo_totalBancaMultiple = [
@@ -503,6 +504,23 @@ var grupo_anos = [
   '#periodo_201212',
 ]
 
+var grupo_l12m = [
+  '#periodo_201612',
+  '#periodo_201611',
+  '#periodo_201610',
+  '#periodo_201609',
+  '#periodo_201608',
+  '#periodo_201607',
+  
+  '#periodo_201606',
+  '#periodo_201605',
+  '#periodo_201604',
+  '#periodo_201603',
+  '#periodo_201602',
+  '#periodo_201601',  
+]
+
+
 
 
 function select_group(lista_ids){
@@ -525,6 +543,29 @@ function limpiar_corte(id_corte){
     $(this).prop('checked', false);
   });
 }
+
+
+var dic_special_checkbox = {
+  'top7': grupo_top7,
+  'l5y': grupo_anos,
+  'l12m': grupo_l12m
+}
+
+$('input.SpecialCheckbox').on('change', function() {
+  var checked_option = $(this).is(':checked')
+  // console.log($(this).attr('value'))
+  // console.log(dic_special_checkbox)
+  var target_group = dic_special_checkbox[$(this).attr('value')]
+  var opciones = $(this).closest('#Corte').find('.opcion');  
+  opciones.each(function(){
+    $(this).prop('checked', false);
+  });
+
+  if(checked_option){
+    select_group(target_group);
+  }
+});
+
 
 
 $('input[type=radio][name=perspectiva_institucion]').on('change',function(){
@@ -672,7 +713,7 @@ var cortes_incompatibles = {
 
 function validar_compatibilidad(corte_seleccionado, corte_activo){
 
-  // xx
+  
   if(jQuery.inArray(corte_seleccionado.attr("value"), cortes_incompatibles[corte_activo.attr("value")]) == -1  ){      
     // $('.SeleccionarCorte').popover('hide');
     return true

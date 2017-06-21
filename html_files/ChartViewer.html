@@ -93,9 +93,28 @@
 							<div id="{{corte[0]}}" style="margin-top: 5px; margin-bottom: 15px; height: 100px; overflow-y: auto; overflow-x: hidden;" class="hidden opciones_corte">																
 								<div class="checkbox">
 									<label>
-										<input class="select_all_checkbox" type="checkbox" target_section="#{{corte[0]}}"> Seleccionar todo
+										<input class="select_all_checkbox" type="checkbox" target_section="#{{corte[0]}}"> <span id="label_text">Seleccionar todo</span> 
 									</label>
-								</div>																
+								</div>
+								{% if corte[0] == 'institucion' %}
+									<div class="checkbox">
+										<label>
+											<input class="SpecialCheckbox" type="checkbox" value="top7" id="institucion_top7"> Top 7 Bancos
+										</label>
+									</div>
+								{% elif corte[0] == 'periodo' %}
+									<div class="checkbox">
+										<label>
+											<input class="SpecialCheckbox" type="checkbox" value="l5y" id="institucion_l5y"> Últimos 5 diciembres
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input class="SpecialCheckbox" type="checkbox" value="l12m" id="institucion_l12m"> Últimos 12 meses
+										</label>
+									</div>
+								{% endif %}	
+															
 								{% for opcion in opciones[corte[0]] %}
 									<div class="checkbox">
 										<label>

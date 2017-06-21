@@ -282,12 +282,21 @@ def_institucion = {
 
 opc_institucion = [
 	['00',  'Total Banca Múltiple'],
+	
+	['16',  'Banamex'],
+	['31',  'Banorte/Ixe'],
+	['34',  'BBVA Bancomer'],
+	['40',  'HSBC'],
+	['42',  'Inbursa'],
+	['53',  'Santander'],
+	['55',  'Scotiabank'],
+
 	['11',  'ABC Capital'],
 	['12',  'Actinver'],
 	['13',  'Afirme'],
 	['14',  'American Express'],
 	['15',  'Autofin'],
-	['16',  'Banamex'],
+	
 	['17',  'Banca Mifel'],
 	['18',  'Banco Ahorro Famsa'],
 	['19',  'Banco Azteca'],
@@ -302,18 +311,18 @@ opc_institucion = [
 	['28',  'Bank of America'],
 	['29',  'Bank of Tokyo-Mitsubishi UFJ'],
 	['30',  'Bankaool'],
-	['31',  'Banorte/Ixe'],
+	
 	['32',  'Banregio'],
 	['33',  'Bansí'],
-	['34',  'BBVA Bancomer'],
+	
 	['35',  'CIBanco'],
 	['36',  'Consubanco'],
 	['37',  'Deutsche Bank'],
 	['38',  'Dondé Banco'],
 	['39',  'Finterra'],
-	['40',  'HSBC'],
+	
 	['41',  'ICBC'],
-	['42',  'Inbursa'],
+	
 	['43',  'ING'],
 	['44',  'Inmobiliario Mexicano'],
 	['45',  'Interacciones'],
@@ -324,9 +333,9 @@ opc_institucion = [
 	['50',  'J.P. Morgan'],
 	['51',  'Monex'],
 	['52',  'Multiva'],
-	['53',  'Santander'],
+	
 	['54',  'Santander Vivienda'],
-	['55',  'Scotiabank'],
+	
 	['56',  'Ve por Más'],
 ]
 
