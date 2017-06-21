@@ -40,52 +40,34 @@ $('.ExpandColapseSection').on('click', function(){
   GlaphiconDiv.toggleClass('glyphicon-plus'); 
 });
 
-// xx
+
 $('.SeleccionarCorte').on('click', function(){
 
+  // $('.SeleccionarCorte').popover('hide');
+  $('.CorteConPopover').popover('hide');
+  $('.CorteConPopover').removeClass('CorteConPopover');
+
   var CorteSeleccionado = $(this)
-  console.log(' ')
-  console.log('Apretado: ' + CorteSeleccionado.attr('value'))
-
-  var CortesActivos = parseInt($('#NumeroCortesSeleccionados').val());
-  var CorteRenglones = $('#CorteRenglones');
-  var CorteColumnas = $('#CorteColumnas');
-
-  validar_compatibilidad(CorteSeleccionado, CorteColumnas);
-
-  if (CorteSeleccionado.attr("corte_activo") == "Si") {
-    $('#NumeroCortesSeleccionados').val(CortesActivos - 1);
-    
-    if(CorteSeleccionado.attr('value') == CorteRenglones){
-      CorteRenglones.val(CorteColumnas.val())
-    }
-
-    CorteColumnas.val('')
-
-  } else {
-
-    if ( CortesActivos == 0){
-      CorteRenglones.val(CorteSeleccionado.val());
-      $('#NumeroCortesSeleccionados').val(1);
-
-    } else if (CortesActivos == 1) {    
-      CorteColumnas.val(CorteSeleccionado.val());
-      $('#NumeroCortesSeleccionados').val(2);   
-
-    } else if (CortesActivos == 2){
-      flipear_boton_corte(CorteRenglones.val())
-      CorteRenglones.val(CorteColumnas.val())
-      CorteColumnas.val(CorteSeleccionado.val())         
-    }
-
-  }
-
-  console.log('Cortes activos: ' + $('#NumeroCortesSeleccionados').val())
-  console.log('Corte columnas: ' + CorteColumnas.val())
-  console.log('Corte renglones: ' + CorteRenglones.val())
-
-
   flipear_boton_corte(CorteSeleccionado.val());
+  var cortes_activos = $('[corte_activo="Si"]');
+  var num_cortes_activos = cortes_activos.length;
+
+  // xx
+  console.log(' ')
+  console.log('Cortes activos: ' + String(num_cortes_activos))
+  // console.log('Apretado: ' + CorteSeleccionado.attr('value'))
+
+  
+  if(num_cortes_activos>2){
+    var popover_content = 'No es posible graficar más de 2 vistas de forma simultanea. Por favor, modifique su selección.';    
+    CorteSeleccionado.attr('data-content', popover_content);    
+    CorteSeleccionado.addClass('CorteConPopover')
+    CorteSeleccionado.popover('show');
+  
+  } else if (num_cortes_activos == 2){
+    validar_compatibilidad($(cortes_activos[0]), $(cortes_activos[1]));
+  } 
+
 });
 
 
@@ -123,8 +105,9 @@ $(document).on('click', '.UpdateChartButton', function(){
   var variable = $('#variable option:selected').val();
   var show_value_as = $('input:radio[name=show_value_as]:checked').val();
 
-  var renglones = $('#CorteRenglones').val();
-  var columnas = $('#CorteColumnas').val();
+  // var renglones = $('#CorteRenglones').val();
+  // var columnas = $('#CorteColumnas').val();
+  var renglones, columnas; 
 
   var cortes = jQuery('.corte');
   var filtros = determinar_filtros(cortes);
@@ -135,6 +118,28 @@ $(document).on('click', '.UpdateChartButton', function(){
   $('.opciones_corte').addClass('hidden');
   $('.glyphicon_boton').removeClass('glyphicon-minus');
   $('.glyphicon_boton').addClass('glyphicon-plus');
+
+  
+  var cortes_activos = $('[corte_activo="Si"]');
+  var num_cortes_activos = cortes_activos.length
+
+  if (num_cortes_activos == 1){
+    renglones = $(cortes_activos[0]).attr("value")
+  
+  } else if (num_cortes_activos == 2){
+    renglones = $(cortes_activos[0]).attr("value")
+    columnas = $(cortes_activos[1]).attr("value")
+  
+  } else {
+    renglones = 'institucion'
+  }
+
+  // for (var i = cortes_activos.length - 1; i >= 0; i--) {
+  //   console.log($(cortes_activos[i]).attr("value"));
+  // }
+
+
+
 
   $.ajax({
     type: "POST",
@@ -667,14 +672,15 @@ var cortes_incompatibles = {
 
 function validar_compatibilidad(corte_seleccionado, corte_activo){
 
-  $('.SeleccionarCorte').popover('hide');
-  if(jQuery.inArray(corte_seleccionado.val(), cortes_incompatibles[corte_activo.val()]) == -1  ){      
-    $('.SeleccionarCorte').popover('hide');
+  // xx
+  if(jQuery.inArray(corte_seleccionado.attr("value"), cortes_incompatibles[corte_activo.attr("value")]) == -1  ){      
+    // $('.SeleccionarCorte').popover('hide');
     return true
 
   } else {
-    corte_activo = boton_corte = $('#boton_' + corte_activo.val())   
+    // corte_activo = boton_corte = $('#boton_' + corte_activo.attr("value"))   
     var popover_content = 'No será posible mostrar información para la combinacion de vistas: ' + corte_seleccionado.text() + ' y ' + corte_activo.text() +'. Por favor, modifique su selección';    
+    corte_seleccionado.addClass('CorteConPopover')
     corte_seleccionado.attr('data-content', popover_content);    
     corte_seleccionado.popover('show');
     return false

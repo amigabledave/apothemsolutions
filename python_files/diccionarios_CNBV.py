@@ -116,9 +116,10 @@ def_cortes = {
 	'sector': 'Sector económico'.decode('utf-8')
 }
 
+
 opc_cortes = [
-	'periodo',
 	'institucion',
+	'periodo',
 	'estado',
 	'tec',
 	'intervalo',
