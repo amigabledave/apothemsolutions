@@ -204,6 +204,11 @@ function draw_chart(chart_array, chart_type){
     }
 
     var is_sorted = $('#is_sorted').is(':checked');
+    if ( $('#variable').val() == 'concentracion_cartera'){
+      is_sorted = true
+    } 
+
+
     if (is_sorted){
       // console.log('Chart array antes de ordenar:')
       // console.log(chart_array)
@@ -219,7 +224,7 @@ function draw_chart(chart_array, chart_type){
       }
 
 
-    if ($('input:radio[name=show_value_as]:checked').val() == 'percentage'){
+    if ($('input:radio[name=show_value_as]:checked').val() == 'percentage' && $('#variable').val() == 'concentracion_cartera' ){
       axis_format = 'percent'
     } else {
       // axis_format = 'short'
@@ -495,6 +500,10 @@ var grupo_ultimoPeriodo = [
   '#periodo_201612'
 ]
 
+var grupo_Octubre2016 = [
+  '#periodo_201610'
+]
+
 
 var grupo_anos = [
   '#periodo_201612',
@@ -748,6 +757,8 @@ var to_be_hidden = [
   '[value=garantia]',
   '[value=calificacion]',
   '[value=sector]',
+  '#opciones_visuales',
+  '#download_row'
 ]
 
 
@@ -794,7 +805,7 @@ var seleccion_default = {
   },
 
   'tasa_i_mn':{
-    'periodos': grupo_ultimoPeriodo,
+    'periodos': grupo_Octubre2016,
     'instituciones': grupo_top7,
     'corte_renglones':'periodo',
     'corte_columnas': 'institucion',
@@ -802,7 +813,7 @@ var seleccion_default = {
   },
 
   'tasa_i_me':{
-    'periodos': grupo_ultimoPeriodo,
+    'periodos': grupo_Octubre2016,
     'instituciones': grupo_top7,
     'corte_renglones':'periodo',
     'corte_columnas': 'institucion',
@@ -810,7 +821,7 @@ var seleccion_default = {
   },
 
   'tasa_i_udis':{
-    'periodos': grupo_ultimoPeriodo,
+    'periodos': grupo_Octubre2016,
     'instituciones': grupo_top7,
     'corte_renglones':'periodo',
     'corte_columnas': 'institucion',
@@ -834,7 +845,7 @@ var seleccion_default = {
   },
 
   'tasa':{
-    'periodos': ['#periodo_201612'],
+    'periodos': ['#periodo_201610'],
     'instituciones': grupo_top7,
     'corte_renglones':'institucion',
     'corte_columnas': 'tec',
