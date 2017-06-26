@@ -2086,6 +2086,16 @@ tm_040_11L_R6 = {
 	'plazo':['plazo']
 }
 
+tm_add0_11L_R6 = {
+	'cve_periodo': ['periodo'],
+	'cve_institucion': ['institucion', cat_institucion],
+	'cve_tipo_moneda': ['moneda', cat_moneda],
+
+	'tasa': ['tasa'],
+	'responsabilidad':['saldo_total'],
+	'plazo':['plazo']
+}
+
 tm_add_11L_R6 = {
 	'cve_periodo': ['periodo'],
 	'cve_institucion': ['institucion', cat_institucion],
@@ -2158,6 +2168,8 @@ transformation_maps_CNBV = {
 	'040_11L_R2': tm_040_11L_R2,
 	'040_11L_R3': tm_040_11L_R3,
 	'040_11L_R5': tm_040_11L_R5,
+	
+	'add0_11L_R6': tm_add0_11L_R6,
 	'add_11L_R6': tm_add_11L_R6,
 	'040_11L_R6': tm_040_11L_R6,
 
@@ -2209,6 +2221,8 @@ detalles_tabla = {
 
 	'040_11L_R5': {'tipo_variables': 'directas', 'perspectiva': 'total'},
 
+	'add0_11L_R6': {'tipo_variables': 'directas', 'perspectiva': 'total'},
+
 	'add_11L_R6': {'tipo_variables': 'directas', 'perspectiva': 'total'},
 	
 	'040_11L_R6': {'tipo_variables': 'directas', 'perspectiva': 'total'},
@@ -2222,6 +2236,7 @@ detalles_tabla = {
 
 
 tablas_CNBV = [
+	'add0_11L_R6',
 	'mod_11E_R1',
 	'mod0_11E_R1',
 	'mod_11E_R3',
@@ -2249,6 +2264,7 @@ tablas_CNBV = [
 	'040_11L_R2',
 	'040_11L_R3',
 	'040_11L_R5',
+	
 	'add_11L_R6',
 	'040_11L_R6',
 
@@ -2382,6 +2398,13 @@ demo_version_details = {
 
 	'040_11L_R5': {
 		'descripcion':'Saldo por destino del credito y tamano de empresa', 
+		'url_fuente': 'Un URL',
+		'registros': 0
+	},
+
+
+	'add0_11L_R6': {
+		'descripcion':'Tasa de interés, plazos y saldo', 
 		'url_fuente': 'Un URL',
 		'registros': 0
 	},

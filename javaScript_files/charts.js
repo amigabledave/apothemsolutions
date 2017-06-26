@@ -52,11 +52,17 @@ $('.SeleccionarCorte').on('click', function(){
   var cortes_activos = $('[corte_activo="Si"]');
   var num_cortes_activos = cortes_activos.length;
 
-  // console.log(' ')
-  // console.log('Cortes activos: ' + String(num_cortes_activos))
-  // console.log('Apretado: ' + CorteSeleccionado.attr('value'))
+  var variable = $('#variable').val();
+  if( variable == 'tasa' || variable == 'plazo' || variable == 'imor'){
+    if($(cortes_activos[0]).attr("value") == 'institucion'){
+      $('#variable').popover('hide');
+    } else {
+      var popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
+      $('#variable').attr('data-content', popover_content);  
+      $('#variable').popover('show');
+    }
+  }
 
-  
   if(num_cortes_activos>2){
     var popover_content = 'No es posible graficar más de 2 vistas de forma simultanea. Por favor, modifique su selección.';    
     CorteSeleccionado.attr('data-content', popover_content);    
@@ -68,7 +74,6 @@ $('.SeleccionarCorte').on('click', function(){
   } 
 
 });
-
 
 
 function flipear_boton_corte(nombre_corte) {
@@ -106,7 +111,7 @@ $(document).on('click', '.UpdateChartButton', function(){
 
   // var renglones = $('#CorteRenglones').val();
   // var columnas = $('#CorteColumnas').val();
-  var renglones, columnas; 
+  var renglones, columnas = 'None';  
 
   var cortes = jQuery('.corte');
   var filtros = determinar_filtros(cortes);
@@ -944,17 +949,17 @@ $('#variable').on('change', function(){
 
   var popover_content;
 
-  if( variable == 'tasa' || variable == 'plazo'){
-    popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco' y una más que no sea 'Periodo'" 
+  if( variable == 'tasa' || variable == 'plazo' || variable == 'imor'){
+    popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
     $('#variable').attr('data-content', popover_content);  
     $('#variable').popover('show');
   
-  } else if(variable == 'imor'){
-    popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
-    $('#variable').attr('data-content', popover_content);
-    $('#variable').popover('show');
+  // } else if(variable == 'imor'){
+  //   popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
+  //   $('#variable').attr('data-content', popover_content);
+  //   $('#variable').popover('show');
   
-  }else {
+  } else {
     $('#variable').popover('hide');
   }
 

@@ -562,7 +562,8 @@ class DeckEditor(Handler):
 class UserEditor(Handler):
 	@super_civilian_bouncer
 	def get(self):
-		usuarios = Usuario.query().order(Usuario.client).fetch()
+		usuarios = Usuario.query().fetch()
+		# usuarios = Usuario.query().order(Usuario.client).fetch()
 		self.print_html('UserEditor.html', usuarios=usuarios)
 
 	def post(self):
