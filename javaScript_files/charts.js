@@ -593,7 +593,11 @@ $('input[type=radio][name=perspectiva_institucion]').on('change',function(){
   
   } else if(perspectiva == 'varios_periodos'){
     select_group(grupo_anos);
-    select_group(grupo_totalBancaMultiple);
+    if($('#variable').val() == 'concentracion_cartera'){
+      select_group(['#institucion_34']);
+    } else {
+      select_group(grupo_totalBancaMultiple);
+    }    
     limite_periodos = 30;
     limite_instituciones = 1;
   
@@ -943,26 +947,21 @@ $('#variable').on('change', function(){
   hide_group(to_be_hidden);
   var variable = $(this).val();  
   var grupo_visible = menus_visibles['siempre'].concat(menus_visibles['siempre_variable'][variable], menus_visibles[$('input:radio[name=perspectiva_portafolio]:checked').val()][variable]);
-  // console.log(' ')
-  // console.log('Este es el grupo de menus visibles')
-  // console.log(grupo_visible)
-
-  var popover_content;
 
   if( variable == 'tasa' || variable == 'plazo' || variable == 'imor'){
-    popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
+    var popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
     $('#variable').attr('data-content', popover_content);  
     $('#variable').popover('show');
-  
-  // } else if(variable == 'imor'){
-  //   popover_content = "Para que los valores graficados de ésta variable sean correctos, es necesario siempre seleccionar la vista 'Banco'" 
-  //   $('#variable').attr('data-content', popover_content);
-  //   $('#variable').popover('show');
   
   } else {
     $('#variable').popover('hide');
   }
 
+  if( variable == 'concentracion_cartera'){
+    $('#radio_varias_varios').addClass('hidden')
+  } else {
+    $('#radio_varias_varios').removeClass('hidden')
+  }
   
   unhide_group(grupo_visible);
   seleccionar_default(variable);

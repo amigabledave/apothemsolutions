@@ -38,7 +38,7 @@ def_variables  = {
 	'concentracion_cartera': 'Concentración de cartera por cliente'.decode('utf-8'),
 	'saldo_acum': 'Saldo acumulado por cliente'.decode('utf-8'),
 	'porc_acum': 'Saldo acumulado por cliente'.decode('utf-8'),
-	'tasa': 'Tasa de interes ponderada'.decode('utf-8'),
+	'tasa': 'Tasa de interés ponderada'.decode('utf-8'),
 	'plazo': 'Plazo ponderado (remanente)'.decode('utf-8'),
 	'imor': 'Índice de Morosidad (IMOR)'.decode('utf-8')
 }
