@@ -52,7 +52,7 @@ def_variables_lead = {
 		'concentracion_cartera': 'Concentración de cartera por cliente del portafolio total'.decode('utf-8'),
 		'saldo_acum': 'Saldo acumulado por cliente del portafolio total'.decode('utf-8'),
 		'porc_acum': 'Saldo acumulado por cliente del portafolio total'.decode('utf-8'),
-		'tasa': 'Tasa de interes ponderada del portafolio total'.decode('utf-8'),
+		'tasa': 'Tasa de interés ponderada del portafolio total'.decode('utf-8'),
 		'plazo': 'Plazo ponderado de los creditos remanentes'.decode('utf-8'),
 		'imor': 'Índice de Morosidad del portafolio total'.decode('utf-8')
 	},
@@ -62,7 +62,7 @@ def_variables_lead = {
 		'creditos': 'Incremento marginal en número de créditos emitidos'.decode('utf-8'),
 		'acreditados': 'Incremento marginal en número de acreditados'.decode('utf-8'),				
 		
-		'tasa': 'Tasa de interes de nuevos créditos emitidos'.decode('utf-8'),
+		'tasa': 'Tasa de interés de nuevos créditos emitidos'.decode('utf-8'),
 		'plazo': 'Plazo ponderado de los nuevos créditos emitidos'.decode('utf-8'),
 	}
 }
@@ -2282,7 +2282,7 @@ demo_version_details = {
 	},
 
 	# '040_11A_R4': {
-	# 	'descripcion':'Cartera actividad empresarial: tasa de interes promedio ponderada, portafolio total', 
+	# 	'descripcion':'Cartera actividad empresarial: tasa de interés promedio ponderada, portafolio total', 
 	# 	'url_fuente': 'Un URL',
 	# 	'registros': 0
 	# },
@@ -2371,7 +2371,7 @@ demo_version_details = {
 
 	
 	'mod_11K_R20': {
-		'descripcion':'Cartera actividad empresarial: tasa de interes por tipo de garantia. Portafolio total', 
+		'descripcion':'Cartera actividad empresarial: tasa de interés por tipo de garantia. Portafolio total', 
 		'url_fuente': 'Un URL',
 		'registros': 0
 	},
@@ -2384,7 +2384,7 @@ demo_version_details = {
 	},
 
 	'040_11L_R2': {
-		'descripcion':'Cartera actividad empresarial: tasas de interes, plazos y saldo por tamano de empresa', 
+		'descripcion':'Cartera actividad empresarial: tasas de interés, plazos y saldo por tamano de empresa', 
 		'url_fuente': 'Un URL',
 		'registros': 0
 	},
@@ -2428,7 +2428,7 @@ demo_version_details = {
 	},
 
 	'040_11L_R12': {
-		'descripcion':'Cartera actividad empresarial: tasas de interes, plazos y saldo por tamano de empresa [Marginal]', 
+		'descripcion':'Cartera actividad empresarial: tasas de interés, plazos y saldo por tamano de empresa [Marginal]', 
 		'url_fuente': 'Un URL',
 		'registros': 0
 	},
